@@ -206,3 +206,25 @@ class RscEdit
 		width = 0.021;
 	};	
 };
+
+class RscActiveText 
+{
+    idc = -1;
+	type = 11;
+	style = 0x30 + 0x800;
+	x = 0;
+	y = 0;
+	h = 0.035;
+	w = 0.035;
+	font = "PuristaMedium";
+	shadow = 2;
+	text = "";
+	sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	color[] = {1,1,1,1};
+	colorText[] = {1,1,1,1};
+	colorActive[] = {Color75};
+	soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1};
+    soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1};
+    soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1};
+    soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1};
+};

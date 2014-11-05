@@ -22,7 +22,8 @@ class DGM_DIALOG
 		DGM_BUTTON_CREATEGRP,
 		DGM_EDITBOX_CREATEGROUP,
 		DGM_BUTTONPINGPLAYER,
-		DGM_BUTTON_EXIT
+		DGM_BUTTON_EXIT,
+		DGM_ACTIVETEXT_REFRESH
 	};
 
 	// BACKGROUNDS
@@ -146,6 +147,19 @@ class DGM_DIALOG
 		h = 0.0392 * safezoneH;
 		action = "closeDialog 0;";
 		toolTip = "Exit the group menu";
+	};
+	
+	// ACTIVE TEXT
+	class DGM_ACTIVETEXT_REFRESH: RscActiveText
+	{
+		text = "\a3\Ui_f\data\GUI\Rsc\RscDisplayArcadeMap\icon_toolbox_synchro_ca.paa"; //--- ToDo: Localize;
+		colorBackground[] = {1,1,1,0};
+		x = 0.215 * safezoneW + safezoneX;
+		y = 0.164 * safezoneH + safezoneY;
+		w = 0.0392 * safezoneW;
+		h = 0.0392 * safezoneH;
+		action = "[ [ IDC_DGM_LISTBOX_AVAILGROUPS, IDC_DGM_LISTBOX_MEMBERS, IDC_DGM_LISTBOX_CURGRP ] ] call DGM_fnc_lbPop;";
+		toolTip = "Refresh the group menu";
 	};
 	
 	// Edit Boxes
