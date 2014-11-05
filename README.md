@@ -1,6 +1,6 @@
 DGM
 ===
-*** !!! DGM IS FOR MP. USE MP EDITOR FOR TESTING !!! ***
+*** !!! DGM IS INTENDED FOR MP. USE THE MP EDITOR FOR TESTING !!! ***
 
 Dynamic Group Manager
 
