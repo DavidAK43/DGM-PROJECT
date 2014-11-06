@@ -28,7 +28,7 @@ call compile format [
     %1 = createGroup ( side player );
 	%1 setGroupID [_compStr];		
 	[ player ] joinSilent %1;	
-	[[(group player),[groupID (group player)]],'setGroupId'] call BIS_fnc_mp;
+	[[(group player),[groupID (group player)]],'setGroupId',true,true] call BIS_fnc_mp;
 	DGMGROUPS pushBack %1;
 	publicVariable 'DGMGROUPS';
 	publicVariable '(group player)';
