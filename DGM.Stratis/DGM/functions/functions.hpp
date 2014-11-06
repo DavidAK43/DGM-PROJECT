@@ -6,11 +6,12 @@ class DGM
 	
 		file = "DGM\functions";
 		class uiInit            	      {};
-		class lbPop            	      	  {};
-		class joinGrp             		  {};
-		class leaveGrp             		  {};
-		class createGrp             	  {};
+		class createGrp            	      {};
+		class joinGrp            	      {};
+		class leaveGrp            	      {};
+		class refresh            	      {};
 		class clientInit            	  {postInit = 1;};
+		class serverInit            	  {postInit = 1;};
     };
 	
 };  

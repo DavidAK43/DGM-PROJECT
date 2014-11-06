@@ -12,15 +12,12 @@
 		this addAction ["Dynamic Group Menu", "_nul=call DGM_fnc_uiInit"];
 
 */
+if (isDedicated) exitWith {};
 
-// --- Create the dialog
 _DGM = createDialog "DGM_DIALOG";
-waitUntil {!(isNull (findDisplay IDD_DGM_DIALOG))};
 
-// --- Populate the lbs
-_nul = [ [ IDC_DGM_LISTBOX_AVAILGROUPS, IDC_DGM_LISTBOX_MEMBERS, IDC_DGM_LISTBOX_CURGRP ] ] call DGM_fnc_lbPop;
-lbSetCurSel [IDC_DGM_LISTBOX_AVAILGROUPS, 0];
+waitUntil {!(isNull (findDisplay IDD_DGM_DIALOG))};
+_nul=call DGM_fnc_refresh;
 
 nil
-
 

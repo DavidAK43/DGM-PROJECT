@@ -1,32 +1,23 @@
-/*
-	file: fn_leaveGrp.sqf
-	author(s): Iceman77
-	
-	Description: 
-		Have the player leave his current group
-	
-	Parameters: 
-		none
-		
-	Usage:
-		action = "_nul=call DGM_fnc_leaveGrp;";
+if (isDedicated) exitWith {};
 
-*/
+private ["_oldGrp"];
 
-private ["_oldGroup"];
+_oldGrp = group player;
 
-// --- Store the player's group he's about to leave
-_oldGrp = groupID (group player);
+if (_oldGrp == grpNull) exitWith {
+	hint "You are not in a group...";
+};
 
-// --- Have the player leave the group, set the null group's groupID to ""
 [player] joinSilent grpNull;
-(group player) setGroupId [""];
+publicVariable "_oldGrp";
 
-// --- Broadcast the player's old group (??)
-publicVariable str _oldGrp;
-
-// -- Trigger onLbSelected event 
-lbSetCurSel [IDC_DGM_LISTBOX_AVAILGROUPS, 0];
-player sideChat format ["You have left group %1", _oldGrp];
+if (count (units _oldGrp) == 0 && {(_oldGrp in DGMGROUPS)}) exitWith {
+	DGMGROUPS deleteAt (DGMGROUPS find _oldGrp);
+	publicVariable "DGMGROUPS";
+	lbSetCurSel [IDC_DGM_LISTBOX_AVAILGROUPS, 999];
+	hint "You have left the group";
+	//_nul=call DGM_fnc_refresh;
+	nil			
+};
 
 nil

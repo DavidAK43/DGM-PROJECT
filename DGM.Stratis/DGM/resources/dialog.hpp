@@ -51,7 +51,7 @@ class DGM_DIALOG
 		y = 0.262 * safezoneH + safezoneY;
 		w = 0.176484 * safezoneW;
 		h = 0.28 * safezoneH;
-		onLBSelChanged = "[ [ IDC_DGM_LISTBOX_AVAILGROUPS, IDC_DGM_LISTBOX_MEMBERS, IDC_DGM_LISTBOX_CURGRP ] ] call DGM_fnc_lbPop;";
+		onLBSelChanged = "_nul=call DGM_fnc_refresh;";
 	};
 	class DGM_LISTBOX_MEMBERS: RscListbox
 	{
@@ -114,7 +114,7 @@ class DGM_DIALOG
 		y = 0.5476 * safezoneH + safezoneY;
 		w = 0.17675 * safezoneW;
 		h = 0.042 * safezoneH;
-		action = "[ [IDC_DGM_LISTBOX_AVAILGROUPS, IDC_DGM_LISTBOX_MEMBERS, IDC_DGM_LISTBOX_CURGRP ] ] call DGM_fnc_joinGrp;";
+		action = "_nul=call DGM_fnc_joinGrp;";
 		toolTip = "Join the selected group";
 	};
 	class DGM_BUTTON_CREATEGRP: RscButton
@@ -158,7 +158,7 @@ class DGM_DIALOG
 		y = 0.164 * safezoneH + safezoneY;
 		w = 0.0392 * safezoneW;
 		h = 0.0392 * safezoneH;
-		action = "[ [ IDC_DGM_LISTBOX_AVAILGROUPS, IDC_DGM_LISTBOX_MEMBERS, IDC_DGM_LISTBOX_CURGRP ] ] call DGM_fnc_lbPop;";
+		action = "_nul=call DGM_fnc_refresh;";
 		toolTip = "Refresh the group menu";
 	};
 	

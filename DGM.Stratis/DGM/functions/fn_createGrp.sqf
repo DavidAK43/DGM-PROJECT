@@ -1,61 +1,55 @@
-/*
-	file: fn_createGrp.sqf
-	author(s): Iceman77
-	
-	Description: 
-		Create the passed group (string - editbox) and have the player join it 
-	
-	Parameters: 
-		_this select 0:<String> - Edit Box text
-		
-	Usage:
-		action = "[ctrlText ((finddisplay IDD_DGM_DIALOG) displayctrl IDC_DGM_EDITBOX_CREATEGROUP)] call DGM_fnc_createGrp";
+if (isDedicated) exitWith {};
 
-*/
+private ["_input","_compStr","_grpName","_oldGrp","_nameTaken"];
 
-private ["_oldGrp","_editBoxText"];
-
+_input = [_this, 0, "",[""]] call BIS_fnc_param;
+_compStr = [_input] call BIS_fnc_filterString;
 _oldGrp = group player;
-_editBoxText = [_this, 0, "", [""]] call BIS_fnc_param;
-_editBoxText = [_editBoxText] call BIS_fnc_filterString;
 _nameTaken = false;
 
-// --- If after string filtering, the name is already taken then exit and notify the player that the group is taken
+if (_input == "") exitWith {
+	hint "Input a group name first";
+	nil
+};
+
 {
-	if (_editBoxText == groupID _x) exitWith {
+	if (_compStr == groupID _x) exitWith {
 		_nameTaken = true;
 	};
-} forEach allGroups;
+} forEach DGMGROUPS;
 
 if (_nameTaken) exitWith {
-	player sideChat "There's already a group with that name. Input a different name."; 
+	hint "That group name is taken. Input another.";
 	nil
 };
 
-// --- If the player has entered no name then exit and notify the player that he needs to enter a name first
-if (_editBoxText == "") exitWith {
-	player sideChat "You have to input a name before you can create a group";
-	nil
-};
-
-// --- If we make it here, then create the group and have the player join it
-call compile format ["
-	%1 = createGroup (side Player);
-	[player] joinSilent %1;
-	%1 setGroupId [_editBoxText];
-	player sideChat format ['You have created a group named %1', %1]
-  ", 
-_editBoxtext
+call compile format [
+   "
+    %1 = createGroup ( side player );
+	%1 setGroupID [_compStr];		
+	[ player ] joinSilent %1;	
+	[[(group player),[groupID (group player)]],'setGroupId'] call BIS_fnc_mp;
+	DGMGROUPS pushBack %1;
+	publicVariable 'DGMGROUPS';
+	publicVariable '(group player)';
+   ", 
+ _compStr
 ];
 
-// --- Broadcast both of the updated groups (??)
-{
-	publicVariable str _x;
-} forEach [(group player), _oldGrp];
+if (count (units _oldGrp) == 0) then {
 
-// --- Shitty WorkAround - 2x setCurSel
-lbSetCurSel [IDC_DGM_LISTBOX_AVAILGROUPS, 999];// 1x trigger lbpop - index will be second to last now
-lbSetCurSel [IDC_DGM_LISTBOX_AVAILGROUPS, 999];// 2x - trigger lbPop again.. Set current selection to very last 
+	if (_oldGrp in DGMGROUPS) exitWith { 
+		DGMGROUPS deleteAt (DGMGROUPS find _oldGrp);
+		publicVariable "DGMGROUPS";
+		
+		_oldGrp = grpNull;
+		publicVariable "_oldGrp";
+	};
+	
+};
+
+_nul=call DGM_fnc_refresh;
+lbSetCurSel [IDC_DGM_LISTBOX_AVAILGROUPS, 999];
 
 nil
 
